@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PixelCraft: My Creative Vault</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="light">
+
+  <header>
+    <div class="title-box">
+      <h1>📸 PixelCraft: My Creative Vault</h1>
+        <p>"Photography is the story I fail to put into words." – Destin Sparks</p>
+
+    </div>
+    <button class="toggle-btn" onclick="toggleMode()">🌙</button>
+  </header>
+
+  <!-- Category Filters -->
+  <div class="filter-buttons">
+    <button onclick="filterImages('all')">All</button>
+    <button onclick="filterImages('design')">Design</button>
+    <button onclick="filterImages('nature')">Nature</button>
+    <button onclick="filterImages('travel')">Travel</button>
+    <button onclick="filterImages('mood')">Mood</button>
+    <button onclick="filterImages('work')">Work</button>
+  </div>
+
+  <!-- Upload Image -->
+  <div class="upload-box">
+    <input type="file" accept="image/*" id="uploadInput">
+    <button onclick="uploadImage()">Upload Image</button>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="full-img" id="fullImgBox">
+    <img src="" id="fullImg">
+    <p id="imgCaption"></p>
+    <span onclick="closeFullImg()">✖</span>
+  </div>
+
+  <!-- Image Gallery -->
+  <div class="img-gallery" id="gallery">
+    <div class="img-card design">
+      <img src="images/img1.jpg" onclick="openFullImg(this)" data-caption="Design Workspace">
+      <h3>Design Workspace</h3>
+      <div class="overlay">Design Workspace</div>
+    </div>
+    <div class="img-card travel">
+      <img src="images/img2.jpg" onclick="openFullImg(this)" data-caption="Island Escape">
+      <h3>Island Escape</h3>
+      <div class="overlay">Island Escape</div>
+    </div>
+    <div class="img-card nature">
+      <img src="images/img3.jpg" onclick="openFullImg(this)" data-caption="Coastal Wonders">
+      <h3>Coastal Wonders</h3>
+      <div class="overlay">Coastal Wonders</div>
+    </div>
+    <div class="img-card mood">
+      <img src="images/img4.jpg" onclick="openFullImg(this)" data-caption="Autumn Aesthetic">
+      <h3>Autumn Aesthetic</h3>
+      <div class="overlay">Autumn Aesthetic</div>
+    </div>
+    <div class="img-card mood">
+      <img src="images/img5.jpg" onclick="openFullImg(this)" data-caption="Sunny Tropics">
+      <h3>Sunny Tropics</h3>
+      <div class="overlay">Sunny Tropics</div>
+    </div>
+    <div class="img-card travel">
+      <img src="images/img6.jpg" onclick="openFullImg(this)" data-caption="Roadtrip Mood">
+      <h3>Roadtrip Mood</h3>
+      <div class="overlay">Roadtrip Mood</div>
+    </div>
+    <div class="img-card culture">
+      <img src="images/img7.jpg" onclick="openFullImg(this)" data-caption="Cultural Expression">
+      <h3>Cultural Expression</h3>
+      <div class="overlay">Cultural Expression</div>
+    </div>
+    <div class="img-card work">
+      <img src="images/img8.jpg" onclick="openFullImg(this)" data-caption="Focused & Creating">
+      <h3>Focused & Creating</h3>
+      <div class="overlay">Focused & Creating</div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const fullImgBox = document.getElementById("fullImgBox");
+    const fullImg = document.getElementById("fullImg");
+    const caption = document.getElementById("imgCaption");
+    const uploadInput = document.getElementById("uploadInput");
+    const gallery = document.getElementById("gallery");
+
+    function openFullImg(imgElement) {
+      fullImgBox.style.display = "flex";
+      fullImg.src = imgElement.src;
+      caption.textContent = imgElement.getAttribute("data-caption");
+    }
+
+    function closeFullImg() {
+      fullImgBox.style.display = "none";
+    }
+
+    function toggleMode() {
+      const body = document.body;
+      const btn = document.querySelector('.toggle-btn');
+      body.classList.toggle('dark');
+      localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+      btn.innerText = body.classList.contains("dark") ? "☀️" : "🌙";
+    }
+
+    function filterImages(category) {
+      const cards = document.querySelectorAll(".img-card");
+      cards.forEach(card => {
+        card.style.display = (category === "all" || card.classList.contains(category)) ? "block" : "none";
+      });
+    }
+
+    function uploadImage() {
+      const file = uploadInput.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const newCard = document.createElement("div");
+        newCard.className = "img-card uploaded";
+        newCard.innerHTML = `
+          <img src="${e.target.result}" onclick="openFullImg(this)" data-caption="User Upload">
+          <h3>User Upload</h3>
+          <div class="overlay">User Upload</div>
+        `;
+        gallery.appendChild(newCard);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    window.onload = () => {
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark") {
+        document.body.classList.add("dark");
+        document.querySelector('.toggle-btn').innerText = "☀️";
+      }
+    };
+  </script>
+</body>
+</html>
+

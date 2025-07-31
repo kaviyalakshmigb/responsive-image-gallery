@@ -1,0 +1,218 @@
+:root {
+  --bg-light: #ecf4fb;
+  --text-light: #1d3557;
+  --subtext-light: #457b9d;
+  --card-light: #ffffff;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+
+  --bg-dark: #1a1a1a;
+  --text-dark: #f1f1f1;
+  --subtext-dark: #a0a0a0;
+  --card-dark: #292929;
+  --shadow-dark: rgba(255, 255, 255, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+body.dark {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 40px 10px;
+  flex-wrap: wrap;
+}
+
+.title-box h1 {
+  font-size: 2.5rem;
+  color: inherit;
+}
+
+.title-box p {
+  font-size: 1rem;
+  color: var(--subtext-light);
+}
+
+body.dark .title-box p {
+  color: var(--subtext-dark);
+}
+
+/* Toggle Button */
+.toggle-btn {
+  font-size: 1.4rem;
+  padding: 8px 14px;
+  background: transparent;
+  border: 2px solid var(--text-light);
+  color: var(--text-light);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+body.dark .toggle-btn {
+  border-color: var(--text-dark);
+  color: var(--text-dark);
+}
+
+/* Filter Buttons */
+.filter-buttons {
+  text-align: center;
+  margin: 20px;
+}
+
+.filter-buttons button {
+  margin: 5px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: none;
+  background: #c9e4f3;
+  color: #1d3557;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+body.dark .filter-buttons button {
+  background: #333;
+  color: #eee;
+}
+
+/* Upload Input */
+.upload-box {
+  text-align: center;
+  margin: 10px auto;
+}
+
+.upload-box input {
+  padding: 6px;
+  margin: 10px;
+}
+
+/* Gallery Layout (Fixed Layout after Filter) */
+.img-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 10px;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+/* Image Card */
+.img-card {
+  width: 300px;
+  flex-shrink: 0;
+  background: var(--card-light);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px var(--shadow-light);
+  position: relative;
+  overflow: hidden;
+}
+
+body.dark .img-card {
+  background: var(--card-dark);
+  box-shadow: 0 8px 16px var(--shadow-dark);
+}
+
+.img-card img {
+  width: 100%;
+  display: block;
+  cursor: pointer;
+}
+
+.img-card h3 {
+  text-align: center;
+  background-color: #f1f9ff;
+  color: var(--text-light);
+  padding: 12px;
+  font-weight: 600;
+}
+
+body.dark .img-card h3 {
+  background-color: #1f1f1f;
+  color: var(--text-dark);
+}
+
+/* Overlay on Hover */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  opacity: 0;
+  transition: 0.4s ease;
+}
+
+.img-card:hover .overlay {
+  opacity: 1;
+}
+
+/* Full Image Lightbox */
+.full-img {
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  flex-direction: column;
+}
+
+.full-img img {
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+.full-img p {
+  color: #fff;
+  margin-top: 10px;
+}
+
+.full-img span {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .img-card {
+    width: 90%;
+  }
+
+  header {
+    padding: 20px;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .toggle-btn {
+    margin-top: 10px;
+  }
+}
